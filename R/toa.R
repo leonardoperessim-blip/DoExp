@@ -1,18 +1,48 @@
 #' toa
 #'
-#' From the structural formulas of units and treatments and a data frame,
-#' returns the Anatomy Table with degrees of freedom and the a-effiency value.
+#' Returns the Anatomy Table with degrees of freedom and the a-effiency for each
+#' source of variation for the ANOVA model, from the structural formulas of units
+#' and tratments and a data.frame.
 #'
-#' @param units structural formula of units. Must be enclosed in quotation marks.
-#' @param trt structural formula of treatments. Must be enclosed in quotation marks.
-#' @param data dataframe containing the variables in the formulas.
+#' @param units a structural formula of units as a character.
+#' @param trt a structural formula of treatments as a character.
+#' @param data data.frame containing the variables named in the structural formulas.
 #'
-#' @example
-#' a definir
+#' @examples
+#' if (requireNamespace("dae", quietly = TRUE)) {
+#'   blocks <- dae::fac.gen(list(
+#'     Blocks = 4,
+#'     A = 2,
+#'     C = 3
+#'   ))
 #'
+#'   blocks$Plots <- rep(1:6, times = 4)
+#'
+#'   anatomytableCBD <- toa(
+#'     units = "Blocks/Plots",
+#'     trt = "A*C",
+#'     data = blocks
+#'   )
+#'
+#'   BIBD <- data.frame(
+#'     Blocks = factor(gl(10, 3)),
+#'     Plots = factor(rep(1:3, times = 10)),
+#'     Treat = factor(c(
+#'       1, 2, 3, 1, 2, 4, 1, 2, 5, 1,
+#'       3, 4, 1, 3, 5, 1, 4, 5, 2, 3,
+#'       4, 2, 3, 5, 2, 4, 5, 3, 4, 5
+#'     ))
+#'   )
+#'
+#'   anatomytableBIBD <- toa(
+#'     units = "Blocks/Plots",
+#'     trt = "Treat",
+#'     data = BIBD
+#'   )
+#' }
 
 #'@export
-toa <- function(units, trt, data) {
+toa <- function(units = NULL, trt = NULL, data = NULL) {
 
   data <- datafactorfun(df = data)
 
@@ -61,7 +91,7 @@ toa <- function(units, trt, data) {
     Source.trt  = character(),
     df.unit     = character(),
     df.trt      = character(),
-    efficence   = character()
+    efficience   = character()
   )
 
   for (i in seq_along(Q.units)) {
@@ -72,7 +102,7 @@ toa <- function(units, trt, data) {
       Source.trt  = "",
       df.unit     = as.character(df.vector.units$df[i]),
       df.trt      = "",
-      efficence   = "",
+      efficience   = "",
       .after      = last_row1
     )
 
@@ -96,7 +126,7 @@ toa <- function(units, trt, data) {
             Source.trt  = labels.trt1$term[j],
             df.unit     = "",
             df.trt      = as.character(dfj),
-            efficence   = as.character(round(hm)),
+            efficience   = as.character(round(hm, 2)),
             .after      = last_row2
           )
           df <- df + dfj
@@ -113,7 +143,7 @@ toa <- function(units, trt, data) {
         Source.trt  = "Residual",
         df.unit     = "",
         df.trt      = as.character(dfres),
-        efficence   = "",
+        efficience   = "",
         .after      = nrow(table.df)
       )
     }

@@ -4,16 +4,50 @@
 \alias{toa}
 \title{toa}
 \usage{
-toa(units, trt, data)
+toa(units = NULL, trt = NULL, data = NULL)
 }
 \arguments{
-\item{units}{structural formula of units. Must be enclosed in quotation marks.}
+\item{units}{a structural formula of units as a character.}
 
-\item{trt}{structural formula of treatments. Must be enclosed in quotation marks.}
+\item{trt}{a structural formula of treatments as a character.}
 
-\item{data}{dataframe containing the variables in the formulas.}
+\item{data}{data.frame containing the variables named in the structural formulas.}
 }
 \description{
-From the structural formulas of units and treatments and a data frame,
-returns the Anatomy Table with degrees of freedom and the a-effiency value.
+Returns the Anatomy Table with degrees of freedom and the a-effiency for each
+source of variation for the ANOVA model, from the structural formulas of units
+and tratments and a data.frame.
+}
+\examples{
+if (requireNamespace("dae", quietly = TRUE)) {
+  blocks <- dae::fac.gen(list(
+    Blocks = 4,
+    A = 2,
+    C = 3
+  ))
+
+  blocks$Plots <- rep(1:6, times = 4)
+
+  anatomytableCBD <- toa(
+    units = "Blocks/Plots",
+    trt = "A*C",
+    data = blocks
+  )
+
+  BIBD <- data.frame(
+    Blocks = factor(gl(10, 3)),
+    Plots = factor(rep(1:3, times = 10)),
+    Treat = factor(c(
+      1, 2, 3, 1, 2, 4, 1, 2, 5, 1,
+      3, 4, 1, 3, 5, 1, 4, 5, 2, 3,
+      4, 2, 3, 5, 2, 4, 5, 3, 4, 5
+    ))
+  )
+
+  anatomytableBIBD <- toa(
+    units = "Blocks/Plots",
+    trt = "Treat",
+    data = BIBD
+  )
+}
 }

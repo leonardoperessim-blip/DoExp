@@ -1,29 +1,3 @@
-#' Hassediagram
-#'
-#' From the structural formulas of units and treatments and a data frame,
-#' returns the Hasse diagrams with the quantities of interest: sources of
-#' variation, degrees of freedom, core matrices of the quadratic forms for
-#' sums of squares, and the contributions to the expectations of mean squares.
-#'
-#' @param units structural formula of units. Must be enclosed in quotation marks.
-#' @param trt structural formula of treatments. Must be enclosed in quotation marks.
-#' @param data dataframe containing the variables in the formulas.
-#' @param random random-effect variables that extend randomness to the factors
-#'  with respect to which they are marginal.
-#' @param advancedrandom random-effect variables that do not extend randomness
-#' to the factors with respect to which they are marginal.
-#' @param leftcolor sets the color of everything to the left of the dot.
-#' Default is "blue".
-#' @param rightcolor sets the color of everything to the right of the dot.
-#' Default is "red".
-#'
-#' @example
-#' a definir
-#'
-
-
-
-#'@export
 Hassediagram <- function(units = NULL, trt = NULL, data = NULL,
                          random = NULL, advancedrandom = NULL,
                          leftcolor = "blue", rightcolor = "red") {
@@ -127,7 +101,7 @@ Hassediagram <- function(units = NULL, trt = NULL, data = NULL,
     EMS.vector.units <- emsfun(
       name.   = name.unit1,
       marg    = marginality.unit,
-      random  = random,
+      random  = c(random, tail(name.unit1$name, 1)),
       M.      = M.units
     )
     EMS.vector.trt <- emsfun(
@@ -140,7 +114,7 @@ Hassediagram <- function(units = NULL, trt = NULL, data = NULL,
     EMS.vector.units <- emsfun2(
       name.   = name.unit1,
       marg    = marginality.unit,
-      random  = advancedrandom,
+      random  = c(advancedrandom, tail(name.unit1$name, 1)),
       M.      = M.units
     )
     EMS.vector.trt <- emsfun2(
@@ -222,7 +196,8 @@ Hassediagram <- function(units = NULL, trt = NULL, data = NULL,
       ),
       arrow = grid::arrow(length = grid::unit(0.2, "cm"), type = "open"),
       color = "black",
-      linewidth = 0.7
+      linewidth = 0.7,
+      alpha = 0.4
     ) +
     ggplot2::geom_text(
       data = name.unit1,
@@ -263,7 +238,8 @@ Hassediagram <- function(units = NULL, trt = NULL, data = NULL,
       ),
       arrow = grid::arrow(length = grid::unit(0.2, "cm")),
       color = "black",
-      linewidth = 0.7
+      linewidth = 0.7,
+      alpha = 0.4
     ) +
     ggplot2::geom_text(
       data = name.trt1,
@@ -304,7 +280,8 @@ Hassediagram <- function(units = NULL, trt = NULL, data = NULL,
       ),
       arrow = grid::arrow(length = grid::unit(0.2, "cm"), type = "open"),
       color = "black",
-      linewidth = 0.7
+      linewidth = 0.7,
+      alpha = 0.4
     ) +
     ggplot2::geom_text(
       data = name.unit2,
@@ -357,7 +334,8 @@ Hassediagram <- function(units = NULL, trt = NULL, data = NULL,
       ),
       arrow = grid::arrow(length = grid::unit(0.2, "cm"), type = "open"),
       color = "black",
-      linewidth = 0.7
+      linewidth = 0.7,
+      alpha = 0.4
     ) +
     ggplot2::geom_text(
       data = name.trt2,
@@ -410,7 +388,8 @@ Hassediagram <- function(units = NULL, trt = NULL, data = NULL,
       ),
       arrow = grid::arrow(length = grid::unit(0.2, "cm"), type = "open"),
       color = "black",
-      linewidth = 0.7
+      linewidth = 0.7,
+      alpha = 0.4
     ) +
     ggplot2::geom_text(
       data = name.unit2,
@@ -465,7 +444,8 @@ Hassediagram <- function(units = NULL, trt = NULL, data = NULL,
       ),
       arrow = grid::arrow(length = grid::unit(0.2, "cm"), type = "open"),
       color = "black",
-      linewidth = 0.7
+      linewidth = 0.7,
+      alpha = 0.4
     ) +
     ggplot2::geom_text(
       data = name.trt2,
@@ -520,7 +500,8 @@ Hassediagram <- function(units = NULL, trt = NULL, data = NULL,
       ),
       arrow = grid::arrow(length = grid::unit(0.2, "cm"), type = "open"),
       color = "black",
-      linewidth = 0.7
+      linewidth = 0.7,
+      alpha = 0.4
     ) +
     ggplot2::geom_text(
       data = name.unit2,
@@ -575,7 +556,8 @@ Hassediagram <- function(units = NULL, trt = NULL, data = NULL,
       ),
       arrow = grid::arrow(length = grid::unit(0.2, "cm"), type = "open"),
       color = "black",
-      linewidth = 0.7
+      linewidth = 0.7,
+      alpha = 0.4
     ) +
     ggplot2::geom_text(
       data = name.trt2,
