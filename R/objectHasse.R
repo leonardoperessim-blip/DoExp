@@ -172,8 +172,6 @@ objectHasse <- function(sform = NULL, data = NULL, type = NULL,
       )
     ),
     raw = list(
-      data = data,
-      X = X.sform,
       marginality = marginality.sform
     )
   )

@@ -25,4 +25,6 @@ Imports:
     utils
 Suggests:
     dae,
-    patchwork
+    patchwork,
+    rmarkdown
+VignetteBuilder: knitr
