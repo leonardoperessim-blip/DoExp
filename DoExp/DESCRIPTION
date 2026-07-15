@@ -1,0 +1,30 @@
+Package: DoExp
+Type: Package
+Title: Design of Experiments with Hasse Diagrams and Anatomy Tables
+Version: 0.0.0.9000
+Authors@R: 
+    c(person("Leonardo", "Peressim", email = "leonardoperessim@usp.br",
+           role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-5378-6903")),
+    person("Renata", "Sermarini", email = "ralcarde@usp.br",
+           role = "aut",
+           comment = c(ORCID = "0000-0001-6425-9626")))
+Description: Return Hasse Diagrams or Anatomy Tables from structure formulaes.
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Imports: 
+    dplyr,
+    ggplot2,
+    knitr,
+    psych,
+    purrr,
+    stringr,
+    tibble,
+    utils
+Suggests:
+    dae,
+    patchwork,
+    rmarkdown
+VignetteBuilder: knitr
